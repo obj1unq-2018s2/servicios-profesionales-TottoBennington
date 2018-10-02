@@ -33,7 +33,16 @@ A partir de este modelo, tiene que poder obtenerse para una empresa:
 - **esta es más difícil**  
   dado un profesional, si es _poco atractivo_ para la empresa.  
   Esto es: si para cada provincia en la que puede trabajar el profesional, la empresa cuenta con otro que también puede cubrir esa provincia, y que cobra más barato. 
+
+
+### Comentario que puede ayudar para la resolución  
+Cada universidad debe acordarse provincia y honorarios recomendados, se le setean y listo.  
+Por otro lado, _está mal_ que los profesionales vinculados se acuerden de qué provincias tienen habilitadas y cuáles son sus honorarios; le tienen que pedir estos datos a la Universidad.
   
+De paso: **OJO** que la Universidad está en _una_ provincia, pero el profesional tiene que devolver una _colección_ de provincias. Un profesional vinculado devolverá una colección con un solo elemento.
+
+<br>
+
 
 ## Test de la etapa 1
 
@@ -56,8 +65,9 @@ Una empresa que contrate a estos cuatro profesionales, y cuyos honorarios de ref
 - las provincias de Santa Fe y Córdoba están cubiertas, pero Misiones no.
 - dos de sus profesionales estudiaron en Rosario, uno en Hurlingham, ninguno (o sea cero) en San Martín.  
 
-Hacer un test que verifique esto.
+Hacer los tests que sean necesarios para verificar esto. Se puede usar `fixture` para definir información que se usa en varios tests dentro de un _describe file_.
 
+<br>
 
 ## Etapa 2 - solicitantes
 
