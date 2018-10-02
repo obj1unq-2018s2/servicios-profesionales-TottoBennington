@@ -69,7 +69,21 @@ Hacer los tests que sean necesarios para verificar esto. Se puede usar `fixture`
 
 <br>
 
-## Etapa 2 - solicitantes
+## Etapa 2 - cobros
+
+Agregar al modelo la consecuencia de que un profesional cobre un importe de dinero, de acuerdo a estas reglas:
+- los **profesionales vinculados** le donan la mitad a la universidad, y la otra mitad la gastan inmediatamente sin que quede registro en la aplicación. Hay que mantener el total recibido por donaciones de cada universidad.
+- los **profesionales asociados** le dan todo lo que cobran a la _Asociación de Profesionales del Litoral_. Agregar un objeto que represente a esta Asociación, que mantiene el total recaudado.
+- los **profesionales libres** se guardan todo lo que cobran. Debe mantenerse el total recibido por cada uno. Un profesional libre le puede _pasar_ dinero a otro: se resta de lo recibido por el que da, se suma al recibido por el que recibe. P.ej. si `ruben` tiene 10000 de total recaudado, `nora` tiene 12000, y hacemos
+  ```
+  nora.pasarDinero(ruben,4000)
+  ```
+  entonces `nora` pasa a tener 8000, y `ruben` 14000.
+
+
+<br>
+
+## Etapa 3 - solicitantes
 
 Los **solicitantes** pueden ser personas o instituciones. Nos interesa saber para cada solicitante si puede (o no) ser _atendido por un profesional_.  
 
@@ -80,7 +94,17 @@ A una empresa se le tiene que poder preguntar si puede _satisfacer_ a un solicit
 La condición para esto es que el solicitante pueda ser atendido por, al menos, uno de los profesionales contratados por la empresa. 
 
 
-
+## Etapa 4 - registro de trabajos hechos
+Agregar al modelo el registro de cada trabajo que una empresa de servicios hace para un determinado solicitante.
+Para esto, agregarle a los objetos que representan empresas la capacidad de entender el mensaje `darServicio`. P.ej. si `laMejor` es una empresa y `mirna` una solicitante, entonces haciendo
+```
+laMejor.darServicio(mirna)
+```
+se indica que se le está dando a Mirna un servicio. Se asume que cada servicio insume una hora de tiempo de un profesional.
+Debe pasar lo siguiente:
+- si el solicitante puede ser atendido (etapa 3), entonces elegir uno cualquiera de los profesionales que puede atenderlo, hacer que ese profesional cobre (etapa 2) su honorario por hora (etapa 1), y agregar al solicitante al conjunto de _clientes_ de la empresa.
+- caso contrario, lanzar un error.
+  
 
 
 
