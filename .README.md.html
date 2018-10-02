@@ -699,8 +699,8 @@ function setDocumentScrollTop(ypos)
 <ul> 
  <li>los <strong>profesionales vinculados</strong> le donan la mitad a la universidad, y la otra mitad la gastan inmediatamente sin que quede registro en la aplicaci&oacute;n. Hay que mantener el total recibido por donaciones de cada universidad.</li> 
  <li>los <strong>profesionales asociados</strong> le dan todo lo que cobran a la <em>Asociaci&oacute;n de Profesionales del Litoral</em>. Agregar un objeto que represente a esta Asociaci&oacute;n, que mantiene el total recaudado.</li> 
- <li>los <strong>profesionales libres</strong> se guardan todo lo que cobran. Debe mantenerse el total recibido por cada uno. Un profesional libre le puede <em>pasar</em> dinero a otro: se resta de lo recibido por el que da, se suma al recibido por el que recibe. P.ej. si <code>ruben</code> tiene 10000 de total recaudado, <code>nora</code> tiene 12000, y hacemos <pre><code>nora.pasarDinero(ruben,4000)
-</code></pre> entonces <code>nora</code> pasa a tener 8000, y <code>ruben</code> 14000.</li> 
+ <li>los <strong>profesionales libres</strong> se guardan todo lo que cobran. Debe mantenerse el total recaudado por cada uno. <br /> Un profesional libre le puede <em>pasar</em> una cantidad X de dinero a otro: se resta X del total recaudado, y el otro cobra X. P.ej. si <code>ruben</code> tiene 10000 de total recaudado, <code>nora</code> tiene 12000, y hacemos <pre><code>nora.pasarDinero(ruben,4000)
+</code></pre> entonces <code>nora</code> pasa a tener 8000, y <code>ruben</code> 14000 (porque cobr&oacute; 4000).</li> 
 </ul> 
 <br /> 
 <h2> <a id="etapa-3---solicitantes" class="anchor" href="#etapa-3---solicitantes" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Etapa 3 - solicitantes</h2> 
@@ -715,6 +715,7 @@ function setDocumentScrollTop(ypos)
 <ul> 
  <li>si el solicitante puede ser atendido (etapa 3), entonces elegir uno cualquiera de los profesionales que puede atenderlo, hacer que ese profesional cobre (etapa 2) su honorario por hora (etapa 1), y agregar al solicitante al conjunto de <em>clientes</em> de la empresa.</li> 
  <li>caso contrario, lanzar un error.</li> 
-</ul>
+</ul> 
+<p>Agregar la posibilidad de preguntarle a una empresa de servicios: cu&aacute;ntos clientes tiene, y si tiene o no como cliente a un determinado solicitante.</p>
 </body>
 </html>

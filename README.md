@@ -74,11 +74,11 @@ Hacer los tests que sean necesarios para verificar esto. Se puede usar `fixture`
 Agregar al modelo la consecuencia de que un profesional cobre un importe de dinero, de acuerdo a estas reglas:
 - los **profesionales vinculados** le donan la mitad a la universidad, y la otra mitad la gastan inmediatamente sin que quede registro en la aplicación. Hay que mantener el total recibido por donaciones de cada universidad.
 - los **profesionales asociados** le dan todo lo que cobran a la _Asociación de Profesionales del Litoral_. Agregar un objeto que represente a esta Asociación, que mantiene el total recaudado.
-- los **profesionales libres** se guardan todo lo que cobran. Debe mantenerse el total recibido por cada uno. Un profesional libre le puede _pasar_ dinero a otro: se resta de lo recibido por el que da, se suma al recibido por el que recibe. P.ej. si `ruben` tiene 10000 de total recaudado, `nora` tiene 12000, y hacemos
+- los **profesionales libres** se guardan todo lo que cobran. Debe mantenerse el total recaudado por cada uno. <br> Un profesional libre le puede _pasar_ una cantidad X de dinero a otro: se resta X del total recaudado, y el otro cobra X. P.ej. si `ruben` tiene 10000 de total recaudado, `nora` tiene 12000, y hacemos
   ```
   nora.pasarDinero(ruben,4000)
   ```
-  entonces `nora` pasa a tener 8000, y `ruben` 14000.
+  entonces `nora` pasa a tener 8000, y `ruben` 14000 (porque cobró 4000).
 
 
 <br>
@@ -105,7 +105,7 @@ Debe pasar lo siguiente:
 - si el solicitante puede ser atendido (etapa 3), entonces elegir uno cualquiera de los profesionales que puede atenderlo, hacer que ese profesional cobre (etapa 2) su honorario por hora (etapa 1), y agregar al solicitante al conjunto de _clientes_ de la empresa.
 - caso contrario, lanzar un error.
   
-
+Agregar la posibilidad de preguntarle a una empresa de servicios: cuántos clientes tiene, y si tiene o no como cliente a un determinado solicitante. 
 
 
 
