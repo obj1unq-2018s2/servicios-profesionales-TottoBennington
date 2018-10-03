@@ -20,7 +20,7 @@ class ProfesionalVinculado {
 	method universidad() { return universidad }
 	method universidad(univ) { universidad = univ }
 	
-	method provinciasDondePuedeTrabajar(){ return universidad.provincia().asSet() }
+	method provinciasDondePuedeTrabajar(){ return universidad.provincia() }
 	
 	method honorariosPorHora(){ return universidad.honorariosRecomendados() }
 }
@@ -29,13 +29,12 @@ class ProfesionalVinculado {
 // a esta clase le faltan atributos y métodos
 class ProfesionalLibre {
 	var universidad
-	var property provinciasDondePuedeTrabajar = []
+	var provinciasDondePuedeLaburar = #{}
 	var property honorariosPorHora
 	
 	method universidad() { return universidad }
 	method universidad(univ) { universidad = univ }
-	
-//	method agregarProvincia(provincia){
-//		provinciasDondePuedeTrabajar.add(provincia)
-//	}
+
+	method provinciasDondePuedeTrabajar() = provinciasDondePuedeLaburar
+	method provinciasDondePuedeTrabajar(provincias){provinciasDondePuedeLaburar = provincias}
 }

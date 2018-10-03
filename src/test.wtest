@@ -2,37 +2,58 @@ import profesionales.*
 import universidades.*
 import empresas.*
 describe "group of tests" {
-	const univSanMartin = new Universidad(provincia="Buenos Aires", honorariosRecomendados=3500)
-	const univRosario = new Universidad(provincia="Santa Fe", honorariosRecomendados=2800)
-	const univCorrientes = new Universidad(provincia="Corrientes", honorariosRecomendados=4200)
-	const univHurlingham = new Universidad(provincia="Buenos Aires", honorariosRecomendados=8800)
+	var univSanMartin = new Universidad()
+	var univRosario = new Universidad()
+	var univCorrientes = new Universidad()
+	var univHurlingham = new Universidad()
 	
-	const juana = new ProfesionalVinculado(universidad=univRosario)
-	const melina = new ProfesionalAsociado(universidad=univCorrientes)
-	const rocio = new ProfesionalLibre(universidad=univHurlingham, honorariosPorHora=5000, provinciasDondePuedeTrabajar=#{"Santa Fe", "Buenos Aires", "Cordoba"})
-	const luciana = new ProfesionalLibre(universidad=univRosario, honorariosPorHora=3200, provinciasDondePuedeTrabajar=#{"Santa Fe", "Entre Rios"})
+	var juana = new ProfesionalVinculado()
+	var melina = new ProfesionalAsociado()
+	var rocio = new ProfesionalLibre()
+	var luciana = new ProfesionalLibre()
 	
 	var rmt = new Empresa(honorarioDeReferencia=3500)
 	
 	fixture{
-		rmt.agregarProfesional(juana)
-		rmt.agregarProfesional(melina)
-		rmt.agregarProfesional(rocio)
-		rmt.agregarProfesional(luciana)
+		univSanMartin.provincia("buenosAires")
+		univSanMartin.honorariosRecomendados(3500)
+		univRosario.provincia("santaFe")
+		univRosario.honorariosRecomendados(2800)
+		univCorrientes.provincia("corrientes")
+		univCorrientes.honorariosRecomendados(4200)
+		univHurlingham.provincia("buenosAires")
+		univHurlingham.honorariosRecomendados(8800)
+		juana.universidad(univRosario)
+		melina.universidad(univCorrientes)
+		rocio.universidad(univHurlingham)
+		rocio.honorariosPorHora(5000)
+		rocio.provinciasDondePuedeTrabajar(#{"santaFe","cordoba","buenosAires"})
+		luciana.honorariosPorHora(3200)
+		luciana.provinciasDondePuedeTrabajar(#{"santaFe","entreRiosa"})
+		luciana.universidad(univRosario)
+		rmt.contratarProfesional(luciana)
+		rmt.contratarProfesional(rocio)
+		rmt.contratarProfesional(melina)
+		rmt.contratarProfesional(juana)
+		rmt.honorarioDeReferencia(3500)
 	}
 	test "profesionales caros solo rocio" {
 		assert.equals([rocio], rmt.profesionalesCaros())
 	}
 	test "universidades formadoras solo rosario, corrientes y hurlingham"{
-		assert.equals([univRosario, univCorrientes, univHurlingham], rmt.universidadesFormadoras())
+		assert.equals(#{univRosario, univCorrientes, univHurlingham}, rmt.universidadesFormadoras())
 	}
 	test "profesional mas barato juana"{
 		assert.equals(juana, rmt.profesionalMasBarato())
 	}
 	test "provincias de sante fe y cordoba cubiertas,misiones no"{
-		assert.that(rmt.estaCubiertaProvincia("Santa Fe"))
+		assert.that(rmt.estaCubierta("santaFe"))
+		assert.that(rmt.estaCubierta("cordoba"))
+		assert.that(!rmt.estaCubierta("misiones"))
 	}
-	test "a"{
-		assert.equals(2, rmt.nroDeProfesionalesFormadosEn(univRosario))
+	test "2 en rosario, 1 en hurlingham, 0 en san martin"{
+		assert.equals(rmt.profesionalesFormadosEn(univRosario), 2)
+		assert.equals(rmt.profesionalesFormadosEn(univHurlingham), 1)
+		assert.equals(rmt.profesionalesFormadosEn(univSanMartin), 0)
 	}
 }

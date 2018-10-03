@@ -2,45 +2,33 @@ import profesionales.*
 import universidades.*
 class Empresa {
 	var property honorarioDeReferencia
-	var property profesionalesCaros = []
-	var property otrosProfesionales = []
-	var provincias = []
+	var profesionales = []
 	
-	method agregarProfesional(profesional){
-		if(profesional.honorariosPorHora()>honorarioDeReferencia){
-			profesionalesCaros.add(profesional)
-		}else{
-			otrosProfesionales.add(profesional)
-		}
+	method contratarProfesional(profesional){profesionales.add(profesional)}
+	
+	method profesionalesCaros() = profesionales.filter{
+		pro => pro.honorariosPorHora()> self.honorarioDeReferencia()
 	}
 	
-	method universidadesFormadoras() {
-		var univForm = profesionalesCaros+otrosProfesionales.map{
-			prof => prof.universidad()
-		}.asList()
-		return univForm
+	method universidadesFormadoras() = profesionales.map{
+		pro => pro.universidad()
+	}.asList().withoutDuplicates().asSet()
+	
+	method profesionalMasBarato() = profesionales.min{
+		pro => pro.honorariosPorHora()
 	}
 	
-	method profesionalMasBarato(){
-		return otrosProfesionales.find{
-			prof => prof.honorariosPorHora().min()
-		}
+	method estaCubierta(provincia) = profesionales.any{
+		pro => pro.provinciasDondePuedeTrabajar().contains(provincia)
 	}
 	
-	method agregarProvincia(provincia){provincias.add(provincia.toString())}
-	
-	method estaCubieraProvincia(provincia) = profesionalesCaros+otrosProfesionales.any{
-		prof => prof.provinciasDondePuedeTrabajar().contains(provincia)
-		
-	}
-	
-	method nroDeProfesionalesFormadosEn(universidad)= profesionalesCaros+otrosProfesionales.filter{
-			prof => prof.universidad() == universidad
+	method profesionalesFormadosEn(unaUniversidad) = profesionales.filter{
+		pro => pro.universidad() == unaUniversidad
 	}.size()
 	
 	method esAtractivo(profesional){ // nose si funciona
 		profesional.provinciasDondePuedeTrabajar().foreach{
-			prov => profesionalesCaros+otrosProfesionales.any{
+			prov => profesionales.any{
 				prof => prof.honorariosPorHora()<profesional.honorariosPorHora() && profesional.provinciasDondePuedeTrabajar().contains(prov)
 			}
 		}
